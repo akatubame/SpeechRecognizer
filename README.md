@@ -1,0 +1,2 @@
+# SpeechRecognizer
+マイク音声認識を使用したPCの音声操作ツール

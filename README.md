@@ -12,7 +12,7 @@ author: @akatubame
 ##■本ソフトの説明
 
 Windowsの音声認識API「SpeechRecognition」を用いた音声操作アプリです。  
-Windows XP、7、8で動作確認済み。ソフト名は「SpeechRecognizer」。以下「本ソフト」と呼称します。
+Windows XP、7、8で動作確認済みです。
 
 手が塞がっている時に別の操作を行う目的で制作しました。主な機能は以下のとおり。
 
@@ -72,8 +72,10 @@ Windows XP、7、8で動作確認済み。ソフト名は「SpeechRecognizer」�
 
 ##■終わりに  
 
-その他、実行したい関数をAutoHotkeyで記述すると任意の操作が音声で行えるようになります。  
-質問や機能の追加要望、バグ報告等は以下へどうぞ。
+その他、実行したい関数をAutoHotkey言語で記述するなどすれば任意の操作が音声で行えるようになります。  
+登録された語句や関数は「SpeechList.ini」に保存されているので、コードの書ける方はエディタなどで直接編集して下さい。
+
+その他、質問や機能の追加要望、バグ報告等は以下へどうぞ。
 
 	Author: akatubame  
 	Email: kurotubame5@gmail.com

@@ -11,7 +11,7 @@ author: @akatubame
 
 ##■本ソフトの説明
 
-Windowsの音声認識API「SpeechRecognition」を用いた音声操作アプリです。  
+Windowsの音声認識API「SAPI」を用いた音声操作アプリです。  
 Windows XP、7、8で動作確認済みです。
 
 手が塞がっている時に音声で別の操作を行う目的で制作しました。主な機能は以下のとおり。

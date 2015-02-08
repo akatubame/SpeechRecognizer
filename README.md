@@ -3,7 +3,7 @@
 
 author: @akatubame
 / date: 2015/02/05
-/ version: 0.0.1
+/ version: 0.0.2
 / 使用言語: [AutoHotkey](http://ahkwiki.net/Top)
 
 ![screenshot]

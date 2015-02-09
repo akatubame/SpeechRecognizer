@@ -77,30 +77,28 @@ Main(){
 		io.s.Recognize(True)
 		io.text := io.s.Prompt()
 		
-		; 誤作動を無視
+		; 誤作動を無視 (１文字だけ、語頭に促音などの音声認識は不正と見なす)
 		If ( StrLen(io.text) = 1 or SubStr(io.text, 1, 1) = "っ" )
 			return
 		
 		; 認識ワードで指定動作を実行
-		flag := 0
-		For i in io.tbl {
-			For k,v in io.tbl[i]["keyword"] {
-				If ( io.text = v ) {
-					Func(io.tbl[i]["func"]).(io.tbl[i]["option"]*)
-					flag := 1
+		matchFlag := 0
+		For i,This in io.tbl {
+			For j in This["keyword"] {
+				If ( io.text = This["keyword"][j] ) {
+					matchFlag := 1
+					Func(This["func"]).(This["option"]*)
 					Break
 				}
 			}
-			If (flag)
+			If (matchFlag)
 				Break
 		}
 		
 		; 見つからない場合、該当する挙動を選択
-		If (!flag) {
+		If (!matchFlag) {
 			io.ThisGui.Title := "挙動の選択 - 「" io.text "」"
-			For key in io.Gui {
-				GUI_Show(io.Gui[key])
-			}
+			GUI_Show(io.ThisGui)
 			;_RunWaitClose("挙動の選択 ahk_class AutoHotkeyGUI")
 		}
 		SoundPlay, *64

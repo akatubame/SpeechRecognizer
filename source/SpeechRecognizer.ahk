@@ -99,7 +99,6 @@ Main(){
 		If (!matchFlag) {
 			io.ThisGui.Title := "挙動の選択 - 「" io.text "」"
 			GUI_Show(io.ThisGui)
-			;_RunWaitClose("挙動の選択 ahk_class AutoHotkeyGUI")
 		}
 		SoundPlay, *64
 	}

@@ -1,4 +1,4 @@
-﻿#Persistent
+#Persistent
 #SingleInstance, Force
 ;#NoTrayIcon
 
@@ -41,11 +41,11 @@ Init:
 	io.Gui     := _ObjFromFile(io.IniFile)
 	io.HK      := _ObjFromFile(io.HotkeyFile)
 	io.ctr     := GetCtrAll()
-	io.ThisGui := ""
+	io.thisGui := ""
 	
 	Gosub, Hotkey_Build
 	For key in io.Gui {
-		io.ThisGui := io.Gui[key]
+		io.thisGui := io.Gui[key]
 		GoSub, GUI_Build
 	}
 	
@@ -82,23 +82,22 @@ Main(){
 			return
 		
 		; 認識ワードで指定動作を実行
-		matchFlag := 0
+		matchFlag := false
 		For i,This in io.tbl {
 			For j in This["keyword"] {
 				If ( io.text = This["keyword"][j] ) {
-					matchFlag := 1
-					Func(This["func"]).(This["option"]*)
+					matchFlag := true
+					_ExecFunc(This["func"], This["option"]*)
 					Break
 				}
 			}
-			If (matchFlag)
-				Break
 		}
 		
 		; 見つからない場合、該当する挙動を選択
 		If (!matchFlag) {
-			io.ThisGui.Title := "挙動の選択 - 「" io.text "」"
-			GUI_Show(io.ThisGui)
+			io.thisGui.Title := "挙動の選択 - 「" io.text "」"
+			GUI_Show(io.thisGui)
+			;_RunWaitClose("挙動の選択 ahk_class AutoHotkeyGUI")
 		}
 		SoundPlay, *64
 	}
@@ -109,9 +108,9 @@ Event:
 	Gosub, SetUp
 	; 項目をクリックした時のイベント
 	If (A_GuiEvent = "Normal") {
-		ID := GetFocusItem(io.ThisCtr, 1)
+		ID := GetFocusItem(io.thisCtr, 1)
 		_AddToObj(io.tbl[ID].keyword, io.text)
-		GUI_Hide(io.ThisGui)
+		GUI_Hide(io.thisGui)
 	}
 return
 
@@ -140,16 +139,15 @@ GuiSize:
 	}
 	;; それ以外
 	Else {
-		ctr := GetCtrFromOption("CtrName", A_GuiControl)
-		For key in ctr
-			CTL_Size(ctr)
+		For i,thisCtr in GetGui().Ctr
+			CTL_Size(thisCtr)
 	}
 return
 
 ; ウィンドウを閉じた時のイベント
 GuiClose:
 GuiEscape:
-	GUI_Hide(io.ThisGui)
+	GUI_Hide(io.thisGui)
 return
 
 ; 右クリックメニュー時のイベント

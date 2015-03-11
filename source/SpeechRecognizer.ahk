@@ -70,8 +70,8 @@ Main(){
 	Else
 	{
 		; GUI消去
-		For key in io.Gui
-			GUI_Hide(io.Gui[key])
+		For i,thisGui in io.Gui
+			GUI_Hide(thisGui)
 		
 		; 音声認識
 		io.s.Recognize(True)
@@ -83,13 +83,19 @@ Main(){
 		
 		; 認識ワードで指定動作を実行
 		matchFlag := false
-		For i,This in io.tbl {
-			For j in This["keyword"] {
-				If ( io.text = This["keyword"][j] ) {
+		For i,thisItem in io.tbl {
+			
+			; 認識ワードが音声認識対応表のワードと一致するまで検索
+			For j in thisItem["keyword"] {
+				If ( io.text != thisItem["keyword"][j] ){
 					matchFlag := true
-					_ExecFunc(This["func"], This["option"]*)
 					Break
 				}
+			}
+			; 一致すれば対応する関数を実行
+			If (matchFlag) {
+				_ExecFunc(thisItem["func"], thisItem["option"]*)
+				Break
 			}
 		}
 		

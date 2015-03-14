@@ -1,9 +1,8 @@
-#Persistent
+﻿#Persistent
 #SingleInstance, Force
 ;#NoTrayIcon
 
 #Include *i <CommonHeader>
-#Include *i <PersistentHeader>
 #Include *i <SpeechRecognition>
 
 ; このアプリ専用のグローバル変数の格納オブジェクト生成
@@ -48,7 +47,6 @@ Init:
 		io.thisGui := io.Gui[key]
 		GoSub, GUI_Build
 	}
-	
 	io.tbl := io.ctr.SpeechList.ItemObj.ItemList ; 音声認識対応表の同期
 return
 
@@ -78,7 +76,7 @@ Main(){
 		io.text := io.s.Prompt()
 		
 		; 誤作動を無視 (１文字だけ、語頭に促音などの音声認識は不正と見なす)
-		If ( StrLen(io.text) = 1 or SubStr(io.text, 1, 1) = "っ" )
+		If ( StrLen(io.text) == 1 or SubStr(io.text, 1, 1) == "っ" )
 			return
 		
 		; 認識ワードで指定動作を実行
@@ -87,7 +85,7 @@ Main(){
 			
 			; 認識ワードが音声認識対応表のワードと一致するまで検索
 			For j in thisItem["keyword"] {
-				If ( io.text != thisItem["keyword"][j] ){
+				If ( io.text == thisItem["keyword"][j] ){
 					matchFlag := true
 					Break
 				}
@@ -113,7 +111,7 @@ Main(){
 Event:
 	Gosub, SetUp
 	; 項目をクリックした時のイベント
-	If (A_GuiEvent = "Normal") {
+	If (A_GuiEvent == "Normal") {
 		ID := GetFocusItem(io.thisCtr, 1)
 		_AddToObj(io.tbl[ID].keyword, io.text)
 		GUI_Hide(io.thisGui)
@@ -140,7 +138,7 @@ return
 ; ウィンドウのサイズ変更時のイベント
 GuiSize:
 	; 最小化
-	If (A_EventInfo = 1) {
+	If (A_EventInfo == 1) {
 		return
 	}
 	;; それ以外
@@ -154,20 +152,4 @@ return
 GuiClose:
 GuiEscape:
 	GUI_Hide(io.thisGui)
-return
-
-; 右クリックメニュー時のイベント
-GuiContextMenu:
-	; ツリービューの場合は項目を前もって選択
-	ctr := GetCtrFromOption("CtrName", A_GuiControl)
-	If (ctr.CtrType = "TreeView")
-		Send, {LButton}
-	
-	;; 各種コンテキストメニュー表示
-	;If (A_GuiControl = "Tags") {
-	;	Menu, TagsContextMenu, Show
-	;}
-	;Else {
-	;	Menu, MyContextMenu, Show
-	;}
 return

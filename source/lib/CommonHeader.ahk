@@ -23,7 +23,7 @@ ListLines Off
 
 ; 相対パスの開始場所をAHKの配置ディレクトリに設定
 SplitPath, A_ScriptDir, name
-If (name = "AutoHotKey")
+If (name == "AutoHotKey" or A_IsCompiled)
 	SetWorkingDir, %A_ScriptDir%\
 Else
 	SetWorkingDir, %A_AhkPath%\..\

@@ -7,7 +7,7 @@ author: @akatubame
 / 使用言語: [AutoHotkey](http://ahkwiki.net/Top)
 
 ![screenshot]
-[screenshot]: https://github.com/akatubame/SpeechRecognizer/blob/master/source/Screenshot.jpg "スクリーンショット"
+[screenshot]: https://github.com/akatubame/SpeechRecognizer/blob/master/Screenshot.jpg "スクリーンショット"
 
 ##■本ソフトの説明
 
